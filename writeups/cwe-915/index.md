@@ -73,29 +73,51 @@ python3 wp2shell.py shell http://192.168.209.156:8080 -i
 
 - [Descarga laboratorio](https://bblabs.es/recursos/laboratorio-asi-los-hackers-consiguen-premium-gratis)
 
+## Impacto
 
+La explotación puede permitir:
+
+- Escalada de privilegios.
+- Modificación de roles.
+- Alteración de permisos.
+- Modificación de información de otros usuarios.
+- Manipulación de identificadores.
+- Cambio de estados internos de cuentas.
+- Acceso a funcionalidades administrativas.
+
+El impacto final depende de los atributos que la aplicación exponga mediante el mecanismo de asignación automática.
 
 ## Mitigación y aprendizajes
  
-### Corrección Técnica y Parche del Fabricante
+### Allowlist de atributos
 
-La resolución de esta cadena de vulnerabilidades requiere la actualización del núcleo de WordPress. El equipo de seguridad del CMS corrigió el fallo de lógica en el enrutamiento de la API REST Batch y saneó la propiedad de consulta de posts. Las versiones oficiales parches y seguras son:
+La aplicación debe definir explícitamente qué propiedades puede modificar cada usuario, en lugar de aceptar todos los atributos proporcionados por el cliente.
 
-- Rama 7.0.x: Actualizar a WordPress 7.0.2
-- Rama 6.9.x: Actualizar a WordPress 6.9.5
-- Rama 6.8.x: Actualizar a WordPress 6.8.6 (corrige el componente de inyección SQL)
+### DTOs
 
-### Medidas Defensivas y de Contención
+Se recomienda utilizar Data Transfer Objects (DTOs) para separar los datos controlados por el usuario de los modelos internos de la aplicación.
 
-En escenarios donde la actualización inmediata no sea viable debido a ventanas de mantenimiento o pruebas de compatibilidad, se deben aplicar las siguientes medidas de mitigación temporal:
+### Autorización del lado del servidor
 
-• Reglas de Firewall de Aplicación Web (WAF): Configurar firmas específicas para bloquear o inspeccionar de forma estricta cualquier solicitud entrante hacia los endpoints /wp-json/batch/v1 y /?rest_route=/batch/v1 que no provenga de un origen de confianza o una sesión administrativa legítima.
-• Restricción vía Código: Implementar un plugin de control interno o modificar el archivo functions.php para interceptar y rechazar peticiones anónimas que intenten invocar el procesamiento por lotes de la API REST.
-• Auditoría de Integridad: Monitorear de forma continua la creación de archivos PHP sospechosos en el directorio wp-content/ y verificar periódicamente que no existan cuentas con privilegios de administrador que no hayan sido creadas por el equipo de TI.
+Los atributos sensibles deben validarse mediante controles de autorización en el backend. Las restricciones implementadas únicamente en el frontend no son suficientes.
+
+### Validación de entrada
+
+Se deben validar el nombre, tipo y valor de cada atributo recibido, rechazando propiedades que no formen parte del conjunto autorizado.
+
+### Monitoreo
+
+Se recomienda registrar modificaciones de atributos sensibles como:
+
+- Roles.
+- Permisos.
+- Estados de cuentas.
+- Identificadores de propietario.
+- Privilegios administrativos.
  
 ## Referencias
  
-- [Exploit](https://github.com/Icex0/wp2shell-poc)
-- [Rapid7 Blog — CVE-2026-63030: WP2Shell](https://www.rapid7.com/blog/post/etr-cve-2026-63030-wp2shell-a-critical-remote-code-execution-vulnerability-in-wordpress-core/)
-- [Elastic Security Labs — WP2Shell Detection](https://www.elastic.co/security-labs/blog/wp2shell-wordpress-rce-detection-elastic-defend)
-- [F5 Labs — CVE-2026-63030 and CVE-2026-60137](https://www.f5.com/labs/articles/cve-2026-63030-and-cve-2026-60137-wp2shell-captured-exploit-payload)
+- [MITRE CWE-915 — Improperly Controlled Modification of Dynamically-Determined Object Attributes](https://cwe.mitre.org/data/definitions/915.html)
+- [OWASP — Mass Assignment Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Mass_Assignment_Cheat_Sheet.html)
+- [Ruby on Rails — Strong Parameters](https://rubyonrails.org/2012/3/21/strong-parameters)
+- [GitHub — Public Key Security Vulnerability and Mitigation](https://github.blog/2012-03-04-public-key-security-vulnerability-and-mitigation/)
