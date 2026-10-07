@@ -4,7 +4,7 @@
  * Nunca pegar service_role, sb_secret, contraseñas ni tokens privados.
  */
 window.POCVAULT_CONFIG = Object.freeze({
-  supabaseUrl: "",
-  supabaseAnonKey: "",
+  supabaseUrl: "https://ddtzmuzkzfqbrhpwphtc.supabase.co",
+  supabaseAnonKey: "sb_publishable_REYw2clvR_lPoBnTeIKaLw_x2LkUtgH",
   cloudflareTurnstileSiteKey: ""
 });
