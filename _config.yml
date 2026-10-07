@@ -1,6 +1,6 @@
 title: "POC Vault"
-description: "Pocs de CVEs"
-url: "https://anonimo501.github.io/PocVault/"
-baseurl: ""
+description: "Writeups técnicos y notas de seguridad"
+url: "https://anonimo501.github.io"
+baseurl: "/PocVault"
 markdown: kramdown
 permalink: pretty
