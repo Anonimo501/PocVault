@@ -6,7 +6,7 @@ title: Inicio
 <section class="hero">
   <p class="eyebrow">CUADERNO TÉCNICO</p>
   <h1>Poc Vault</h1>
-  <p class="lead">Paso a paso de POCs, con foco en el aprendizaje responsable.</p>
+  <p class="lead">En esta pagina se subirán Writeups y POCs, la idea principal de esta web es tener un lugar donde podamos encontrar POCs de las vulnerabilidades que deseamos explotar y con un aprendizaje responsable.</p>
 </section>
  
 <h2 class="section-title">Publicaciones</h2>
