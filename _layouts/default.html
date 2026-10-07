@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+    <meta name="description" content="{{ page.description | default: site.description | escape }}">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+      <span class="tagline">Notas de seguridad · laboratorio · aprendizaje</span>
+    </header>
+ 
+    <main class="container">
+      {{ content }}
+    </main>
+ 
+    <footer class="site-footer">
+      <span>Contenido con fines educativos. Prueba solo sistemas con autorización.</span>
+    </footer>
+  </body>
+</html>
