@@ -3,22 +3,50 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://gc.zgo.at{% if site.turnstile_sitekey and site.turnstile_sitekey != '' %} https://challenges.cloudflare.com{% endif %}; connect-src 'self' https://*.supabase.co https://*.goatcounter.com https://gc.zgo.at{% if site.turnstile_sitekey and site.turnstile_sitekey != '' %} https://challenges.cloudflare.com{% endif %}; img-src 'self' data:; style-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src {% if site.turnstile_sitekey and site.turnstile_sitekey != '' %}https://challenges.cloudflare.com{% else %}'none'{% endif %}">
+    <title>{% if page.title %}{{ page.title | escape }} | {% endif %}{{ site.title | escape }}</title>
     <meta name="description" content="{{ page.description | default: site.description | escape }}">
-    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url | escape }}">
+    {% if site.goatcounter_url and site.goatcounter_url != "" %}
+      <script data-goatcounter="{{ site.goatcounter_url | escape }}" async src="https://gc.zgo.at/count.js"></script>
+    {% endif %}
+    <script src="{{ '/assets/js/site-config.js' | relative_url | escape }}" defer></script>
+    <script src="{{ '/assets/js/vendor/supabase.js' | relative_url | escape }}" defer></script>
+    <script src="{{ '/assets/js/site.js' | relative_url | escape }}" defer></script>
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+      <a class="brand" href="{{ '/' | relative_url | escape }}">{{ site.title | escape }}</a>
       <span class="tagline">https://www.youtube.com/@Anonimo501 · https://t.me/Pen7esting</span>
     </header>
- 
+
     <main class="container">
       {{ content }}
     </main>
- 
+
     <footer class="site-footer">
       <span>Contenido con fines educativos. Prueba solo sistemas con autorización.</span>
     </footer>
+    <div id="turnstile-gate" class="turnstile-gate" hidden>
+      <section class="turnstile-panel" aria-labelledby="turnstile-title">
+        <h2 id="turnstile-title">Verificación de seguridad</h2>
+        <p>Completa la comprobación para poder dar Me gusta.</p>
+        <div id="turnstile-widget"></div>
+        <button class="turnstile-cancel" type="button">Cancelar</button>
+        <p class="turnstile-status" aria-live="polite"></p>
+      </section>
+    </div>
+    <div id="share-dialog" class="share-dialog" hidden>
+      <div class="share-panel" role="dialog" aria-modal="true" aria-labelledby="share-title">
+        <button class="share-close" type="button" aria-label="Cerrar opciones para compartir">×</button>
+        <h2 id="share-title">Compartir publicación</h2>
+        <a data-share-x target="_blank" rel="noopener noreferrer">Compartir en X</a>
+        <a data-share-whatsapp target="_blank" rel="noopener noreferrer">Compartir por WhatsApp</a>
+        <a data-share-linkedin target="_blank" rel="noopener noreferrer">Compartir en LinkedIn</a>
+        <button data-copy-link type="button">Copiar enlace</button>
+        <p class="share-feedback" aria-live="polite"></p>
+      </div>
+    </div>
   </body>
 </html>

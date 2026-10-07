@@ -4,3 +4,10 @@ url: "https://anonimo501.github.io"
 baseurl: "/PocVault"
 markdown: kramdown
 permalink: pretty
+
+# Opcional: reemplaza por https://TU-CODIGO.goatcounter.com/count para medir visitas.
+goatcounter_url: ""
+
+# Opcional: llave pública (sitekey) de Cloudflare Turnstile.
+# Solo configurarla si también se activa CAPTCHA en Supabase Auth y en site-config.js.
+turnstile_sitekey: ""
