@@ -51,24 +51,38 @@ MITRE define CWE-915 precisamente como la modificación incorrectamente controla
 - Infraestructura: Laboratorio local aislado destinado exclusivamente a pruebas de seguridad.
 - Alcance: Las pruebas se limitaron exclusivamente en una máquina virtual controlada por el evaluador.
  
-## Paso 1: Check
- 
-Podemos validar si nuestro objetivo es vulnerable con el comando:
+## Paso 1: Validar suscriptiones
 
-```
-python3 wp2shell.py check http://192.168.209.156:8080
-```
+### Pasar de una suscripción básica a una premium
 
-## Paso 2: Explotacion
- 
-Una vez vemos que la victima es vulnerable enviamos el ataque con el siguiente comando:
+Iniciamos viendo los planes de suscripción:
 
-```
-python3 wp2shell.py shell http://192.168.209.156:8080 -i
-```
+![Captura del análisis]({{ '/writeups/cwe-915/Imagen1.png' | relative_url }})
+
+## Paso 2: Enviar la peticion al Repeater
  
-![Captura del análisis]({{ '/writeups/cve-2026-63030/01-wp2shell.png' | relative_url }})
- 
+Entramos a nuestra cuenta y dentro de esta al cambiar el nombre y presionar en guardar, capturamos esta peticion y lo enviamos al repeater.
+
+![Captura del análisis]({{ '/writeups/cwe-915/Imagen2.png' | relative_url }})
+
+## Paso 3: Capturar la respuesta del servidor
+
+Cogemos de la respuesta del servidor plan:free para usarlo en una nueva consulta
+
+![Captura del análisis]({{ '/writeups/cwe-915/Imagen3.png' | relative_url }})
+
+## Paso 4: Modificación de la peticion
+
+Agregamos plan:free y lo cambiamos a plan:premium y enviamos la peticion nuevamente.
+
+![Captura del análisis]({{ '/writeups/cwe-915/Imagen4.png' | relative_url }})
+
+## Paso 5: Validación de cuenta premium
+
+Como podemos ver al enviar esta peticion modificada y recargar la pagina veremos que tendremos el plan premium.
+
+![Captura del análisis]({{ '/writeups/cwe-915/Imagen5.png' | relative_url }})
+
 ## Maquina de lab
 
 - [Descarga laboratorio](https://bblabs.es/recursos/laboratorio-asi-los-hackers-consiguen-premium-gratis)
