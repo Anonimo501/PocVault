@@ -5,8 +5,8 @@ title: Inicio
  
 <section class="hero">
   <p class="eyebrow">CUADERNO TÉCNICO</p>
-  <h1>Writeups y notas de seguridad</h1>
-  <p class="lead">Análisis documentados paso a paso, con foco en el aprendizaje responsable.</p>
+  <h1>Poc Vault</h1>
+  <p class="lead">Paso a paso de POCs, con foco en el aprendizaje responsable.</p>
 </section>
  
 <h2 class="section-title">Publicaciones</h2>
