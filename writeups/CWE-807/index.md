@@ -68,33 +68,31 @@ Si la aplicación utiliza directamente `isAdmin` para determinar los privilegios
 
 ## Explotación
 
-Inicialmente se captura una solicitud HTTP legítima utilizando Burp Suite.
+Inicialmente vemos el aviso de las peliculas premium y que tenemos una cuenta basica con plan gratis.
 
-Posteriormente se identifica un parámetro o cabecera que pueda estar relacionado con el mecanismo de autorización de la aplicación.
+![Captura del análisis]({{ '/writeups/cwe-915/Imagen1.png' | relative_url }})
 
-Ejemplo de solicitud original:
+Ingresamos a la película "protocolo cero" mientras miramos el "HTTP History" al elegir una peticion y observar la respuesta del servidor se puede ver un parámetro "canWhatch:false" el cual esta indicando que no podemos ver la película. 
 
-    GET /admin HTTP/1.1
-    Host: objetivo.local
-    X-Custom-IP-Authorization: 192.168.1.100
+![Captura del análisis]({{ '/writeups/cwe-915/Imagen2.png' | relative_url }})
 
-Mediante Match and Replace se configura una regla para modificar automáticamente el valor:
+Así que, copiamos el parámetro "canWhatch:false" y nos dirigimos a Proxy → Match and Replace → Add → Type Response body → "Cambiamos Match "canWhatch":false por "canWhatch":true en Replace" 
 
-    Match:
+![Captura del análisis]({{ '/writeups/cwe-915/Imagen3.png' | relative_url }})
 
-    X-Custom-IP-Authorization: 192.168.1.100
+Recargamos la pagina web de las películas y veremos que es posible ver cualquier película aun teniendo nuestra cuenta básica o plan gratis. 
 
-    Replace:
+![Captura del análisis]({{ '/writeups/cwe-915/Imagen4.png' | relative_url }})
 
-    X-Custom-IP-Authorization: 127.0.0.1
+Ingresamos a la película "Protocolo cero" y veremos ya no nos pide una cuenta premium para poder ver la pelicula.
 
-La solicitud enviada al servidor será entonces:
+![Captura del análisis]({{ '/writeups/cwe-915/Imagen5.png' | relative_url }})
 
-    GET /admin HTTP/1.1
-    Host: objetivo.local
-    X-Custom-IP-Authorization: 127.0.0.1
+Podemos regresar a BurpSuite y mirar las respuestas del servidor modificadas automáticamente de "canWhatch":false a "canWhatch":true. 
 
-Si el servidor confía incorrectamente en esta cabecera para determinar si la solicitud procede de un usuario autorizado, podría permitir el acceso a la funcionalidad administrativa.
+![Captura del análisis]({{ '/writeups/cwe-915/Imagen6.png' | relative_url }})
+
+Si el servidor confía incorrectamente en este parametro "canWhatch" para determinar si la solicitud procede de un usuario autorizado en este caso premium, podría permitir el acceso a las funcionalidades premium.
 
 ## Impacto
 
