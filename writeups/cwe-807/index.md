@@ -60,7 +60,7 @@ Si la aplicación utiliza directamente `isAdmin` para determinar los privilegios
 
 ## Entorno
 
-- **[Aplicación/servicio](https://bblabs.es/recursos/laboratorio-asi-los-hackers-consiguen-premium-gratis):** .
+- **[Aplicación/servicio](https://bblabs.es/recursos/laboratorio-asi-los-hackers-consiguen-premium-gratis)**
 - **Herramienta:** Burp Suite.
 - **Componente utilizado:** Proxy > Match and Replace.
 - **Infraestructura:** Laboratorio local controlado.
