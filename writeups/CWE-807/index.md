@@ -4,7 +4,7 @@ title: "cwe-807 - Match and Replace — Manipulación de Solicitudes HTTP"
 date: 2010-01-18
 category: "WEB · ACCESS CONTROL"
 description: "Análisis y demostración de la manipulación de solicitudes HTTP mediante Match and Replace de Burp Suite para modificar parámetros y cabeceras utilizados por una aplicación vulnerable para implementar controles de acceso."
-image: "/writeups/cwe-807/portada.jpg"
+image: "/writeups/CWE-807/portada.jpg"
 ---
 
 ## Resumen
