@@ -177,8 +177,8 @@ Por ejemplo:
 
 ## Referencias
 
-- https://portswigger.net/burp/documentation/desktop/tools/proxy/match-and-replace
-- https://portswigger.net/burp/documentation/desktop/testing-workflow/vulnerabilities/access-controls/using-match-and-replace
-- https://portswigger.net/burp/documentation/desktop/testing-workflow/vulnerabilities/access-controls/param-based-access-control
-- https://cwe.mitre.org/data/definitions/285.html
-- https://cwe.mitre.org/data/definitions/807.html
+- [Portswigger match and replace](https://portswigger.net/burp/documentation/desktop/tools/proxy/match-and-replace)
+- [Portswigger using match and replace](https://portswigger.net/burp/documentation/desktop/testing-workflow/vulnerabilities/access-controls/using-match-and-replace)
+- [Portswigger param based access control](https://portswigger.net/burp/documentation/desktop/testing-workflow/vulnerabilities/access-controls/param-based-access-control)
+- [Mitre 285](https://cwe.mitre.org/data/definitions/285.html)
+- [Mitre 807](https://cwe.mitre.org/data/definitions/807.html)
