@@ -70,27 +70,27 @@ Si la aplicación utiliza directamente `isAdmin` para determinar los privilegios
 
 Inicialmente vemos el aviso de las peliculas premium y que tenemos una cuenta basica con plan gratis.
 
-![Captura del análisis]({{ '/writeups/cwe-915/Imagen1.png' | relative_url }})
+![Captura del análisis]({{ '/writeups/cwe-915/Imag1.png' | relative_url }})
 
 Ingresamos a la película "protocolo cero" mientras miramos el "HTTP History" al elegir una peticion y observar la respuesta del servidor se puede ver un parámetro "canWhatch:false" el cual esta indicando que no podemos ver la película. 
 
-![Captura del análisis]({{ '/writeups/cwe-915/Imagen2.png' | relative_url }})
+![Captura del análisis]({{ '/writeups/cwe-915/Imag2.png' | relative_url }})
 
 Así que, copiamos el parámetro "canWhatch:false" y nos dirigimos a Proxy → Match and Replace → Add → Type Response body → "Cambiamos Match "canWhatch":false por "canWhatch":true en Replace" 
 
-![Captura del análisis]({{ '/writeups/cwe-915/Imagen3.png' | relative_url }})
+![Captura del análisis]({{ '/writeups/cwe-915/Imag3.png' | relative_url }})
 
 Recargamos la pagina web de las películas y veremos que es posible ver cualquier película aun teniendo nuestra cuenta básica o plan gratis. 
 
-![Captura del análisis]({{ '/writeups/cwe-915/Imagen4.png' | relative_url }})
+![Captura del análisis]({{ '/writeups/cwe-915/Imag4.png' | relative_url }})
 
 Ingresamos a la película "Protocolo cero" y veremos ya no nos pide una cuenta premium para poder ver la pelicula.
 
-![Captura del análisis]({{ '/writeups/cwe-915/Imagen5.png' | relative_url }})
+![Captura del análisis]({{ '/writeups/cwe-915/Imag5.png' | relative_url }})
 
 Podemos regresar a BurpSuite y mirar las respuestas del servidor modificadas automáticamente de "canWhatch":false a "canWhatch":true. 
 
-![Captura del análisis]({{ '/writeups/cwe-915/Imagen6.png' | relative_url }})
+![Captura del análisis]({{ '/writeups/cwe-915/Imag6.png' | relative_url }})
 
 Si el servidor confía incorrectamente en este parametro "canWhatch" para determinar si la solicitud procede de un usuario autorizado en este caso premium, podría permitir el acceso a las funcionalidades premium.
 
