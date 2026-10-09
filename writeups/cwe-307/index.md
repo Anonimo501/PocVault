@@ -19,10 +19,10 @@ La vulnerabilidad reside en la aplicación objetivo cuando esta no valida estric
 
 ## Identificación
 
-- **Técnica utilizada:** Batching Attack / Multiple Credentials per Request
-- **Herramienta:** Burp Suite (Repeater o Intruder con payload único)
+- **Técnica utilizada:** Batching Attack / Múltiples credenciales por solicitud
+- **Herramienta:** Burp Suite (Repeater)
 - **Tipo:** Evasión de control de intentos de autenticación
-- **CWE:** CWE-307 — Improper Restriction of Excessive Authentication Attempts
+- **CWE:** CWE-307 — Restricción inadecuada de intentos de autenticación excesivos
 - **Objetivo:** Evadir protección contra fuerza bruta en endpoints de autenticación
 - **Vector:** HTTP Request Body (JSON)
 - **Elemento afectado:** Parámetro de contraseña en petición de login
@@ -58,25 +58,45 @@ Entonces el atacante puede probar cientos de contraseñas en una sola petición 
 
 - **Aplicación/servicio:** Laboratorio de PortSwigger (Broken brute-force protection, multiple credentials per request)
 - **Herramienta:** Burp Suite
-- **Componente utilizado:** Repeater (modificación manual del body) o Intruder con payload único
+- **Componente utilizado:** Repeater (modificación manual del body)
 - **Infraestructura:** Laboratorio controlado (PortSwigger Web Security Academy)
 - **Objetivo:** Evaluar la resistencia del mecanismo de autenticación frente a múltiples credenciales por petición
 
 ## Explotación
 
-Inicialmente identificamos el endpoint de login y observamos que el servidor implementa protección contra fuerza bruta: tras varios intentos fallidos, la cuenta se bloquea o las peticiones son rechazadas.
+Ingresamos cualquier credencial para ingresar en el login.
 
-![Captura del análisis]({{ '/writeups/CWE-307/Imagen1.png' | relative_url }})
+![Captura del análisis]({{ '/writeups/cwe-307/Screenshot_1.png' | relative_url }})
+
+Generamos el array con la herramienta o script a continuación: [JsonArrayPass.py](https://github.com/Anonimo501/JsonArray.py/tree/main)
+
+![Captura del análisis]({{ '/writeups/cwe-307/Screenshot_2.png' | relative_url }})
+
+Podemos ver el resultado del Json Array generado por la herramienta.
+
+![Captura del análisis]({{ '/writeups/cwe-307/Screenshot_3.png' | relative_url }})
+
+Así que llevamos este Json Array al parámetro `password`.
 
 En lugar de enviar peticiones individuales con cada contraseña, modificamos la petición para convertir el parámetro `password` de string a array JSON, incluyendo todas las credenciales candidatas:
 
     {"username":"carlos","password":["123456","password","12345678","qwerty","123456789","12345","1234","111111","1234567","dragon",...]}
 
-![Captura del análisis]({{ '/writeups/CWE-307/Imagen2.png' | relative_url }})
-
 Al enviar la petición modificada, el servidor procesa el array internamente. Si alguna de las contraseñas en el array coincide con la almacenada, la autenticación es exitosa y el servidor responde con un `302` (redirección al panel de usuario).
 
-![Captura del análisis]({{ '/writeups/CWE-307/Imagen3.png' | relative_url }})
+![Captura del análisis]({{ '/writeups/cwe-307/Screenshot_4.png' | relative_url }})
+
+Damos clic derecho y copiamos la URL.
+
+![Captura del análisis]({{ '/writeups/cwe-307/Screenshot_5.png' | relative_url }})
+
+La pegamos en el navegador y hacemos clic sobre "My account"
+
+![Captura del análisis]({{ '/writeups/cwe-307/Screenshot_6.png' | relative_url }})
+
+Al ingresar veremos la cuenta del usuario carlos.
+
+![Captura del análisis]({{ '/writeups/cwe-307/Screenshot_7.png' | relative_url }})
 
 El ataque completo se contabiliza como **una sola petición HTTP**, por lo que el mecanismo de rate limiting nunca se activa, sin importar cuántas contraseñas se incluyan en el array.
 
