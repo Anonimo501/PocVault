@@ -158,6 +158,7 @@ Para el laboratorio de PortSwigger específico analizado, el mapeo correcto es *
 ## Referencias
 
 - [MITRE CWE-307](https://cwe.mitre.org/data/definitions/307.html)
-- [PortSwigger: Broken brute-force protection, multiple credentials per request](https://portswigger.net/web-security/authentication/password-based/lab-broken-bruteforce-protection-ip-block)
+- [Lab: Broken brute-force protection, multiple credentials per request](https://portswigger.net/web-security/authentication/password-based/lab-broken-brute-force-protection-multiple-credentials-per-request)
+- [Lab: Broken brute-force protection, IP block](https://portswigger.net/web-security/authentication/password-based/lab-broken-bruteforce-protection-ip-block)
 - [OWASP: Blocking Brute Force Attacks](https://owasp.org/www-community/controls/Blocking_Brute_Force_Attacks)
 - [MITRE CWE-799](https://cwe.mitre.org/data/definitions/799.html)
