@@ -15,7 +15,7 @@ El investigador Lachlan Davidson reportó la falla al programa de recompensas de
 
 ## Entorno
 
-https://github.com/ThemeHackers/CVE-2025-55182 
+[¡Descarga el laboratorio para replicar el ataque!](https://github.com/ThemeHackers/CVE-2025-55182 )
 
 ## Componentes y versiones afectadas
 
