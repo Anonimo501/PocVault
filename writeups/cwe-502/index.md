@@ -4,7 +4,7 @@ title: "CWE-502 — React2Shell: RCE en React Server Components (Next.js)"
 date: 2025-12-03
 category: "CWE · WEB"
 description: "Análisis de CVE-2025-55182, una vulnerabilidad crítica de ejecución remota de código (RCE) no autenticada en el protocolo Flight de React Server Components (RSC), que afecta a React 19 y a frameworks como Next.js por una deserialización insegura de datos controlados por el atacante."
-image: "/writeups/cwe-502/portada5.jpg"
+image: "/writeups/cwe-502/portada5.png"
 ---
 
 ## Resumen
