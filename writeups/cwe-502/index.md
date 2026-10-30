@@ -4,7 +4,7 @@ title: "CWE-502 — React2Shell: RCE en React Server Components (Next.js)"
 date: 2025-12-03
 category: "CWE · WEB"
 description: "Análisis de CVE-2025-55182, una vulnerabilidad crítica de ejecución remota de código (RCE) no autenticada en el protocolo Flight de React Server Components (RSC), que afecta a React 19 y a frameworks como Next.js por una deserialización insegura de datos controlados por el atacante."
-image: "/writeups/cve-2025-55182/portada.jpg"
+image: "/writeups/cwe-502/portada5.jpg"
 ---
 
 ## Resumen
@@ -12,6 +12,10 @@ image: "/writeups/cve-2025-55182/portada.jpg"
 CVE-2025-55182, conocida públicamente como **"React2Shell"**, es una vulnerabilidad crítica (CVSS 10.0) que permite a un atacante no autenticado ejecutar código arbitrario en el servidor. La causa raíz es una deserialización insegura en el protocolo **"Flight"** de React Server Components (RSC), usado para transmitir el árbol de componentes y las referencias a funciones del servidor entre cliente y servidor.
 
 El investigador Lachlan Davidson reportó la falla al programa de recompensas de Meta el 29 de noviembre de 2025. El equipo de React la divulgó públicamente y publicó parches el 3 de diciembre de 2025. CISA la añadió a su catálogo KEV el 5 de diciembre de 2025, tras observarse explotación activa por parte de varios grupos de amenazas (incluyendo actores vinculados a China como Earth Lamia y Jackpot Panda) pocas horas después de la divulgación.
+
+## Entorno
+
+https://github.com/ThemeHackers/CVE-2025-55182 
 
 ## Componentes y versiones afectadas
 
@@ -32,6 +36,20 @@ El parche oficial de React corrige esto introduciendo comprobaciones de propieda
 - **No requiere autenticación ni interacción del usuario**: basta una solicitud HTTP a un endpoint que procese payloads RSC (`Content-Type: text/x-component` o cabecera `Next-Action`).
 - **Superficie amplia**: cualquier aplicación Next.js con App Router que use Server Actions, incluso proyectos generados con `create-next-app` por defecto, es vulnerable.
 - **Explotación masiva observada**: según Cloudflare, se registraron más de 580 millones de intentos de explotación en la semana posterior a la divulgación; Wiz Research reportó que ~39% de los entornos cloud analizados tenían instancias vulnerables.
+
+## POC
+
+Vemos el laboratorio montado a continuación.
+
+![Captura del análisis]({{ '/writeups/cwe-502/img1.png' | relative_url }})
+
+Ahora primero enviamos el scanner para validar si la pagina web objetivo es vulnerable o no a CVE-2025-55182.
+
+![Captura del análisis]({{ '/writeups/cwe-502/img2.png' | relative_url }})
+
+Por ultimo enviamos el ataque con el exploit y el flag --exploit para lograr la ejecución remota de código. 
+
+![Captura del análisis]({{ '/writeups/cwe-502/img3.png' | relative_url }})
 
 ## Impacto
 
@@ -64,10 +82,10 @@ Se recomienda vigilar:
 
 ## Referencias
 
-- React — Critical Security Vulnerability in React Server Components
-- Vercel — React2Shell Security Bulletin
-- Next.js — Security Update, diciembre de 2025
-- Google Cloud Threat Intelligence — Multiple Threat Actors Exploit React2Shell (CVE-2025-55182)
-- Datadog Security Labs — CVE-2025-55182 (React2Shell): análisis técnico
-- AWS Security Blog — China-nexus cyber threat groups rapidly exploit React2Shell
-- OPSWAT — React2Shell (CVE-2025-55182) Analysis
+- [React — Critical Security Vulnerability in React Server Components](https://react.dev/blog/2025/12/03/critical-security-vulnerability-in-react-server-components)
+- [Vercel — React2Shell Security Bulletin](https://vercel.com/kb/bulletin/react2shell)
+- [Vercel — Resources for protecting against 'React2Shell' (Next.js)](https://vercel.com/blog/resources-for-protecting-against-react2shell)
+- [Google Cloud Threat Intelligence — Multiple Threat Actors Exploit React2Shell (CVE-2025-55182)](https://cloud.google.com/blog/topics/threat-intelligence/threat-actors-exploit-react2shell-cve-2025-55182)
+- [Datadog Security Labs — CVE-2025-55182 (React2Shell): análisis técnico](https://securitylabs.datadoghq.com/articles/cve-2025-55182-react2shell-remote-code-execution-react-server-components/)
+- [AWS Security Blog — China-nexus cyber threat groups rapidly exploit React2Shell](https://aws.amazon.com/blogs/security/china-nexus-cyber-threat-groups-rapidly-exploit-react2shell-vulnerability-cve-2025-55182/)
+- [OPSWAT — React2Shell (CVE-2025-55182) Analysis](https://www.opswat.com/blog/react2shell-cve-2025-55182-critical-remote-code-execution-in-react-server-components)
