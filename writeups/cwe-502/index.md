@@ -63,9 +63,8 @@ La explotación exitosa permite:
 
 ## Mitigación
 
-**Actualización inmediata (la única mitigación completa):**
-- React: actualizar `react-server-dom-*` a 19.0.1, 19.1.2 o 19.2.1 (o 19.2.2/19.2.3 si también aplican las CVE relacionadas).
-- Next.js: actualizar a la última versión parcheada de la línea correspondiente (por ejemplo 15.0.7, 15.1.11, 15.2.8, 15.3.8, 15.4.10, 15.5.9, 16.0.7 o superiores).
+* React: actualizar `react-server-dom-*` a 19.0.1, 19.1.2 o 19.2.1 (o 19.2.2/19.2.3 si también aplican las CVE relacionadas).
+* Next.js: actualizar a la última versión parcheada de la línea correspondiente — 15.0.5, 15.1.9, 15.2.6, 15.3.6, 15.4.8, 15.5.7 o **16.0.10** (la vulnerabilidad afecta versiones desde 15.0.0 hasta **16.0.6** inclusive). Si usas versiones canary: actualizar más allá de 14.3.0-canary.76, 15.6.0-canary.58 o 16.1.0-canary.12 según corresponda.
 
 **Mitigaciones temporales (si no se puede parchear de inmediato):**
 - WAF: reglas para bloquear payloads Flight malformados o sospechosos dirigidos a endpoints RSC (varios proveedores cloud desplegaron reglas globales, sin garantía total).
